@@ -1,0 +1,71 @@
+max_price = 0;
+min_price = 0;
+dev_min[players()] = 0;
+dev_max[players()] = 0;
+auc_min = 0;
+auc_max = 0;
+while (active_players() > 1) do{
+	i = 0,
+	while (i < players()) do{
+		if (result_raw_price(i) != 0)
+		then{
+			auc_min+=1,
+			dev_min[i] = (dev_min[i] + result_raw_price(i) - min_price) / 
+				auc_min
+		}else{},
+		if (result_prod_price(i) != 0)
+		then{
+			auc_max+=1,
+			dev_max[i] = (dev_max[i] + max_price - result_prod_price(i)) /
+				auc_max
+		}else{},
+		i += 1
+	},
+	if (supply() >= 2*active_players())
+	then{
+		max = raw_price()-1
+	}else{
+		max = 0,
+		i = 0,
+		while (i < players()) do{
+			if (dev_min[i]+raw_price() > max)
+			then{
+				max = dev_min[i] + raw_price()
+			}else{},
+			i+=1
+		}
+	},
+	if (raw(my_id()) <= 2)
+	then{
+		buy 2, max+1
+	}else{
+		if (raw(my_id()) == 3)
+		then{
+			buy 1, max+1
+		}else{}
+	},
+	if (demand() >= 2*active_players())
+	then{
+		min = production_price()
+	}else{
+		min = 10000000,
+		i = 0,
+		while (i < players()) do{
+			if (production_price() - dev_max[i] < min)
+			then{
+				min = production_price() - dev_max[i]
+			}else{},
+			i+=1
+		}
+	},
+	sell production(my_id()), min-1,
+	if (raw(my_id()) <= 2)
+	then{
+		prod raw(my_id())
+	}else{
+		prod 2
+	},
+	min_price = raw_price(),
+	max_price = production_price(),
+	endturn
+};

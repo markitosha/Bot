@@ -1,0 +1,11 @@
+while (active_players() > 1) do{
+	buy 2, raw_price(),
+	sell production(my_id()), production_price(),
+	if (raw(my_id()) <= 2)
+	then{
+		prod raw(my_id())
+	}else{
+		prod 2
+	},
+	endturn
+};
