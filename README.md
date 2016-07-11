@@ -5,7 +5,9 @@ GENERAL USAGE NOTES
 - Program connects to gameserver, create or join the game and plays on the given instructions
 - It has to launch from command line with following parameters:
 ```
-	./bot [server IP-adress] [server port] [username in chat] [create [number of players] || join [username the game creator or game number] ] [input file with instructions in model language] [output file to game log]
+	./bot [server IP-adress] [server port] [username in chat] [create [number of players] 
+        || join [username the game creator or game number] ]
+        [input file with instructions in model language] [output file to game log]
 ```
 
 INSTALLATION
