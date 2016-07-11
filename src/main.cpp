@@ -1,4 +1,4 @@
-#include "inter.h"
+#include "../lib/inter.h"
 
 Leksema* LA::HF(int c)
 {
